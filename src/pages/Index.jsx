@@ -41,13 +41,12 @@ const Index = () => {
   };
 
   const datosGrafico = [
-    { name: 'Gastado', valor: calcularPorcentajeGastado() },
-    { name: 'Restante', valor: 100 - calcularPorcentajeGastado() },
+    { name: 'Pacing', gastado: calcularPorcentajeGastado(), restante: 100 - calcularPorcentajeGastado() },
   ];
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-900 to-pink-900 p-4">
-      <Card className="w-[520px] bg-card border-primary/20 shadow-lg shadow-primary/30">
+      <Card className="w-[480px] bg-card border-primary/20 shadow-lg shadow-primary/30">
         <CardHeader className="pb-4">
           <CardTitle className="text-3xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
             Calculadora de Presupuesto
@@ -102,19 +101,25 @@ const Index = () => {
           </div>
           <div className="pt-4 border-t border-primary/20">
             <h3 className="text-lg font-semibold text-center mb-4 text-primary">Pacing de la Campaña</h3>
-            <ResponsiveContainer width="100%" height={200}>
-              <BarChart data={datosGrafico}>
-                <XAxis dataKey="name" stroke="#fff" />
-                <YAxis stroke="#fff" />
-                <Tooltip 
+            <ResponsiveContainer width="100%" height={100}>
+              <BarChart data={datosGrafico} layout="vertical" barSize={30}>
+                <XAxis type="number" domain={[0, 100]} hide />
+                <YAxis type="category" dataKey="name" hide />
+                <Tooltip
                   contentStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', border: 'none' }}
                   labelStyle={{ color: '#fff' }}
+                  formatter={(value, name) => [`${value.toFixed(2)}%`, name === 'gastado' ? 'Gastado' : 'Restante']}
                 />
-                <Bar dataKey="valor" fill="url(#colorGradient)" />
+                <Bar dataKey="gastado" stackId="a" fill="url(#colorGradient)" />
+                <Bar dataKey="restante" stackId="a" fill="url(#colorGradientRestante)" />
                 <defs>
-                  <linearGradient id="colorGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#7c3aed" stopColor="#db2777" />
+                  <linearGradient id="colorGradient" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stopColor="#7c3aed" />
                     <stop offset="100%" stopColor="#db2777" />
+                  </linearGradient>
+                  <linearGradient id="colorGradientRestante" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stopColor="#db2777" stopOpacity={0.3} />
+                    <stop offset="100%" stopColor="#7c3aed" stopOpacity={0.3} />
                   </linearGradient>
                 </defs>
               </BarChart>
