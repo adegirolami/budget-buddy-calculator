@@ -35,59 +35,59 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800">
-      <Card className="w-[420px] bg-gray-800 border-cyan-500 shadow-lg shadow-cyan-500/50">
-        <CardHeader>
-          <CardTitle className="text-3xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-900 to-pink-900">
+      <Card className="w-[480px] bg-card border-primary/20 shadow-lg shadow-primary/30">
+        <CardHeader className="pb-4">
+          <CardTitle className="text-3xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
             Calculadora de Presupuesto
           </CardTitle>
         </CardHeader>
-        <CardContent>
-          <div className="space-y-6">
+        <CardContent className="space-y-8">
+          <div className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="total-mensual" className="text-cyan-300">Total mensual:</Label>
+              <Label htmlFor="total-mensual" className="text-primary">Total mensual:</Label>
               <Input
                 id="total-mensual"
                 type="number"
                 value={totalMensual}
                 onChange={(e) => setTotalMensual(Number(e.target.value))}
                 placeholder="0"
-                className="bg-gray-700 border-cyan-500 text-white placeholder-gray-400"
+                className="bg-muted border-primary/30 text-foreground placeholder-muted-foreground focus:border-secondary"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="consumido" className="text-cyan-300">Consumido hasta ahora:</Label>
+              <Label htmlFor="consumido" className="text-primary">Consumido hasta ahora:</Label>
               <Input
                 id="consumido"
                 type="number"
                 value={consumido}
                 onChange={(e) => setConsumido(Number(e.target.value))}
                 placeholder="0"
-                className="bg-gray-700 border-cyan-500 text-white placeholder-gray-400"
+                className="bg-muted border-primary/30 text-foreground placeholder-muted-foreground focus:border-secondary"
               />
             </div>
-            <div className="grid grid-cols-2 gap-4 text-sm text-cyan-100">
-              <div className="flex items-center">
-                <CalendarIcon className="h-5 w-5 mr-2 text-cyan-400" />
-                <span>Días restantes: {diasRestantes}</span>
-              </div>
-              <div className="flex items-center">
-                <BriefcaseIcon className="h-5 w-5 mr-2 text-cyan-400" />
-                <span>Días hábiles: {diasHabilesRestantes}</span>
-              </div>
-              <div className="flex items-center">
-                <DollarSignIcon className="h-5 w-5 mr-2 text-cyan-400" />
-                <span>Diario: ${calcularPresupuestoDiario().toFixed(2)}</span>
-              </div>
-              <div className="flex items-center">
-                <DollarSignIcon className="h-5 w-5 mr-2 text-cyan-400" />
-                <span>Diario hábil: ${calcularPresupuestoDiarioHabil().toFixed(2)}</span>
-              </div>
-              <div className="flex items-center col-span-2">
-                <DollarSignIcon className="h-5 w-5 mr-2 text-cyan-400" />
-                <span className="text-lg font-bold text-blue-300">Remanente: ${calcularRemanente().toFixed(2)}</span>
-              </div>
+          </div>
+          <div className="grid grid-cols-2 gap-6 text-sm">
+            <div className="flex items-center space-x-2">
+              <CalendarIcon className="h-5 w-5 text-secondary" />
+              <span className="text-foreground">Días restantes: {diasRestantes}</span>
             </div>
+            <div className="flex items-center space-x-2">
+              <BriefcaseIcon className="h-5 w-5 text-secondary" />
+              <span className="text-foreground">Días hábiles: {diasHabilesRestantes}</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <DollarSignIcon className="h-5 w-5 text-secondary" />
+              <span className="text-foreground">Diario: ${calcularPresupuestoDiario().toFixed(2)}</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <DollarSignIcon className="h-5 w-5 text-secondary" />
+              <span className="text-foreground">Diario hábil: ${calcularPresupuestoDiarioHabil().toFixed(2)}</span>
+            </div>
+          </div>
+          <div className="flex items-center justify-center space-x-3 pt-4 border-t border-primary/20">
+            <DollarSignIcon className="h-6 w-6 text-accent" />
+            <span className="text-2xl font-bold text-accent">Remanente: ${calcularRemanente().toFixed(2)}</span>
           </div>
         </CardContent>
       </Card>
