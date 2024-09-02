@@ -36,7 +36,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800">
-      <Card className="w-[380px] bg-gray-800 border-cyan-500 shadow-lg shadow-cyan-500/50">
+      <Card className="w-[420px] bg-gray-800 border-cyan-500 shadow-lg shadow-cyan-500/50">
         <CardHeader>
           <CardTitle className="text-3xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
             Calculadora de Presupuesto
