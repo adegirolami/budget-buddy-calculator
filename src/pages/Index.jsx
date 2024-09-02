@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { CalendarIcon, BriefcaseIcon, DollarSignIcon } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
 const Index = () => {
   const [totalMensual, setTotalMensual] = useState(0);
@@ -34,9 +35,19 @@ const Index = () => {
     return totalMensual - consumido;
   };
 
+  const calcularPorcentajeGastado = () => {
+    if (totalMensual === 0) return 0;
+    return (consumido / totalMensual) * 100;
+  };
+
+  const datosGrafico = [
+    { name: 'Gastado', valor: calcularPorcentajeGastado() },
+    { name: 'Restante', valor: 100 - calcularPorcentajeGastado() },
+  ];
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-900 to-pink-900">
-      <Card className="w-[480px] bg-card border-primary/20 shadow-lg shadow-primary/30">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-900 to-pink-900 p-4">
+      <Card className="w-[520px] bg-card border-primary/20 shadow-lg shadow-primary/30">
         <CardHeader className="pb-4">
           <CardTitle className="text-3xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
             Calculadora de Presupuesto
@@ -88,6 +99,29 @@ const Index = () => {
           <div className="flex items-center justify-center space-x-3 pt-4 border-t border-primary/20">
             <DollarSignIcon className="h-6 w-6 text-accent" />
             <span className="text-2xl font-bold text-accent">Remanente: ${calcularRemanente().toFixed(2)}</span>
+          </div>
+          <div className="pt-4 border-t border-primary/20">
+            <h3 className="text-lg font-semibold text-center mb-4 text-primary">Pacing de la Campaña</h3>
+            <ResponsiveContainer width="100%" height={200}>
+              <BarChart data={datosGrafico}>
+                <XAxis dataKey="name" stroke="#fff" />
+                <YAxis stroke="#fff" />
+                <Tooltip 
+                  contentStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', border: 'none' }}
+                  labelStyle={{ color: '#fff' }}
+                />
+                <Bar dataKey="valor" fill="url(#colorGradient)" />
+                <defs>
+                  <linearGradient id="colorGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#7c3aed" stopColor="#db2777" />
+                    <stop offset="100%" stopColor="#db2777" />
+                  </linearGradient>
+                </defs>
+              </BarChart>
+            </ResponsiveContainer>
+            <p className="text-center mt-2 text-sm text-muted-foreground">
+              Gastado: {calcularPorcentajeGastado().toFixed(2)}% | Restante: {(100 - calcularPorcentajeGastado()).toFixed(2)}%
+            </p>
           </div>
         </CardContent>
       </Card>
