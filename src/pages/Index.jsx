@@ -11,13 +11,11 @@ const Index = () => {
   const [diasHabilesRestantes, setDiasHabilesRestantes] = useState(0);
 
   useEffect(() => {
-    // Calcular días restantes y días hábiles restantes
     const hoy = new Date();
     const finDeMes = new Date(hoy.getFullYear(), hoy.getMonth() + 1, 0);
     const diasRestantes = finDeMes.getDate() - hoy.getDate() + 1;
     setDiasRestantes(diasRestantes);
 
-    // Asumimos 5 días hábiles por semana
     const diasHabiles = Math.floor(diasRestantes * (5 / 7));
     setDiasHabilesRestantes(diasHabiles);
   }, []);
@@ -37,53 +35,57 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <Card className="w-[350px]">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800">
+      <Card className="w-[380px] bg-gray-800 border-cyan-500 shadow-lg shadow-cyan-500/50">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold text-center">Calculadora de Presupuesto Diario</CardTitle>
+          <CardTitle className="text-3xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+            Calculadora de Presupuesto
+          </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
+          <div className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="total-mensual">Total mensual:</Label>
+              <Label htmlFor="total-mensual" className="text-cyan-300">Total mensual:</Label>
               <Input
                 id="total-mensual"
                 type="number"
                 value={totalMensual}
                 onChange={(e) => setTotalMensual(Number(e.target.value))}
                 placeholder="0"
+                className="bg-gray-700 border-cyan-500 text-white placeholder-gray-400"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="consumido">Consumido hasta ahora:</Label>
+              <Label htmlFor="consumido" className="text-cyan-300">Consumido hasta ahora:</Label>
               <Input
                 id="consumido"
                 type="number"
                 value={consumido}
                 onChange={(e) => setConsumido(Number(e.target.value))}
                 placeholder="0"
+                className="bg-gray-700 border-cyan-500 text-white placeholder-gray-400"
               />
             </div>
-            <div className="grid grid-cols-2 gap-4 text-sm">
+            <div className="grid grid-cols-2 gap-4 text-sm text-cyan-100">
               <div className="flex items-center">
-                <CalendarIcon className="h-4 w-4 mr-2" />
+                <CalendarIcon className="h-5 w-5 mr-2 text-cyan-400" />
                 <span>Días restantes: {diasRestantes}</span>
               </div>
               <div className="flex items-center">
-                <BriefcaseIcon className="h-4 w-4 mr-2" />
+                <BriefcaseIcon className="h-5 w-5 mr-2 text-cyan-400" />
                 <span>Días hábiles: {diasHabilesRestantes}</span>
               </div>
               <div className="flex items-center">
-                <DollarSignIcon className="h-4 w-4 mr-2" />
+                <DollarSignIcon className="h-5 w-5 mr-2 text-cyan-400" />
                 <span>Diario: ${calcularPresupuestoDiario().toFixed(2)}</span>
               </div>
               <div className="flex items-center">
-                <DollarSignIcon className="h-4 w-4 mr-2" />
+                <DollarSignIcon className="h-5 w-5 mr-2 text-cyan-400" />
                 <span>Diario hábil: ${calcularPresupuestoDiarioHabil().toFixed(2)}</span>
               </div>
               <div className="flex items-center col-span-2">
-                <DollarSignIcon className="h-4 w-4 mr-2" />
-                <span>Remanente: ${calcularRemanente().toFixed(2)}</span>
+                <DollarSignIcon className="h-5 w-5 mr-2 text-cyan-400" />
+                <span className="text-lg font-bold text-blue-300">Remanente: ${calcularRemanente().toFixed(2)}</span>
               </div>
             </div>
           </div>
