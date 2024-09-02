@@ -44,6 +44,17 @@ const Index = () => {
     { name: 'Pacing', gastado: calcularPorcentajeGastado(), restante: 100 - calcularPorcentajeGastado() },
   ];
 
+  const CustomTooltip = ({ active, payload }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="custom-tooltip bg-card border border-primary/20 p-2 rounded shadow-md">
+          <p className="text-foreground font-semibold">{`${payload[0].name}: ${payload[0].value.toFixed(2)}%`}</p>
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-900 to-pink-900 p-4">
       <Card className="w-[480px] bg-card border-primary/20 shadow-lg shadow-primary/30">
@@ -105,17 +116,7 @@ const Index = () => {
               <BarChart data={datosGrafico} layout="vertical" barSize={30}>
                 <XAxis type="number" domain={[0, 100]} hide />
                 <YAxis type="category" dataKey="name" hide />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: 'rgba(30, 30, 30, 0.9)',
-                    border: '1px solid rgba(255, 255, 255, 0.2)',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                  }}
-                  labelStyle={{ color: '#fff', fontWeight: 'bold' }}
-                  itemStyle={{ color: '#fff' }}
-                  formatter={(value, name) => [`${value.toFixed(2)}%`, name === 'gastado' ? 'Gastado' : 'Restante']}
-                />
+                <Tooltip content={<CustomTooltip />} />
                 <Bar dataKey="gastado" stackId="a" fill="url(#colorGradient)" />
                 <Bar dataKey="restante" stackId="a" fill="url(#colorGradientRestante)" />
                 <defs>
