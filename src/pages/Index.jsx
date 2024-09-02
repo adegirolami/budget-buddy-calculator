@@ -106,8 +106,14 @@ const Index = () => {
                 <XAxis type="number" domain={[0, 100]} hide />
                 <YAxis type="category" dataKey="name" hide />
                 <Tooltip
-                  contentStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', border: 'none' }}
-                  labelStyle={{ color: '#fff' }}
+                  contentStyle={{
+                    backgroundColor: 'rgba(30, 30, 30, 0.9)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                  }}
+                  labelStyle={{ color: '#fff', fontWeight: 'bold' }}
+                  itemStyle={{ color: '#fff' }}
                   formatter={(value, name) => [`${value.toFixed(2)}%`, name === 'gastado' ? 'Gastado' : 'Restante']}
                 />
                 <Bar dataKey="gastado" stackId="a" fill="url(#colorGradient)" />
